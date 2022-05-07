@@ -92,7 +92,7 @@ def get_scatter_chart(entered_site, payload_range):
         fig=px.scatter(df_slide, x='Payload Mass (kg)', y='class', color='Booster Version Category',
         title='Success Rate by Payloads and Booster Versions for ALL Sites')
         success_rate=print((df_slide[df_slide['Class']==1].shape[0])/df_slide.shape[0])
-        return fig, print(success_rate)
+        return fig, success_rate
       
     
     else:
@@ -100,7 +100,7 @@ def get_scatter_chart(entered_site, payload_range):
         fig=px.scatter(df_select,x='Payload Mass (kg)', y='class', color='Booster Version Category',
         title='Success by Payloads and Booster Versions for Selected Site')
         success_rate=print((df_slide[df_slide['Class']==1].shape[0])/df_slide.shape[0])
-        return fig, print(success_rate)
+        return fig, success_rate
     
 
 
