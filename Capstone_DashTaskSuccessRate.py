@@ -58,7 +58,7 @@ app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
                                                  value=[min_payload, max_payload]),
 
                                 # TASK 4: Add a scatter chart to show the correlation between payload and launch success
-                                html.Div(dcc.Graph(id='success-payload-scatter-chart'),'success_rate' ),
+                                html.Div(dcc.Graph(id='success-payload-scatter-chart'))#'success_rate' ),
                                 ])
 
 # TASK 2:
@@ -81,26 +81,27 @@ def get_pie_chart(entered_site):
 # TASK 4:
 # Add a callback function for `site-dropdown` and `payload-slider` as inputs, `success-payload-scatter-chart` as output
 @app.callback(Output(component_id='success-payload-scatter-chart', component_property='figure'),
-              Output(component_id='success_rate', component_property='value'),
+              #Output(component_id='success_rate', component_property='value'),
               Input(component_id='site-dropdown', component_property='value'),
               Input(component_id="payload-slider", component_property="value"))
 
 def get_scatter_chart(entered_site, payload_range):
     low, high=payload_range  #What is this expression? ASK!
     df_slide=spacex_df[(spacex_df['Payload Mass (kg)']>=low)&(spacex_df['Payload Mass (kg)']<=high)]
+    # filtered_df = spacex_df[spacex_df['Payload Mass (kg)'].between(payload[0],payload[1])]
     if entered_site=='ALL':
         fig=px.scatter(df_slide, x='Payload Mass (kg)', y='class', color='Booster Version Category',
         title='Success Rate by Payloads and Booster Versions for ALL Sites')
-        success_rate=print((df_slide[df_slide['Class']==1].shape[0])/df_slide.shape[0])
-        return fig, success_rate
+        #success_rate=print((df_slide[df_slide['Class']==1].shape[0])/df_slide.shape[0])
+        return fig #success_rate
       
     
     else:
         df_select=df_slide[df_slide['Launch Site'] == entered_site]  #Why can't we use df_slide['Launch Site']? Double check with dataframe.
         fig=px.scatter(df_select,x='Payload Mass (kg)', y='class', color='Booster Version Category',
         title='Success by Payloads and Booster Versions for Selected Site')
-        success_rate=print((df_slide[df_slide['Class']==1].shape[0])/df_slide.shape[0])
-        return fig, success_rate
+        #success_rate=print((df_slide[df_slide['Class']==1].shape[0])/df_slide.shape[0])
+        return fig #success_rate
     
 
 
